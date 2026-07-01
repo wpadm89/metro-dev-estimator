@@ -3,7 +3,7 @@ import csv
 import os
 
 # 1. LINK TO YOUR GOOGLE SHEET CSV (We will put your real URL here soon)
-CSV_URL = "REPLACE_WITH_YOUR_CSV_URL"
+CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQMP8m4tpMGQBUVzJTFeDafKYHmxvLZss9r369IWWU6t9slrcXX8e7w1qjl-snipjpLoF7TniA-7QlV/pub?gid=0&single=true&output=csv"
 
 def download_and_generate():
     # Create the folder where Vercel will look for web pages
