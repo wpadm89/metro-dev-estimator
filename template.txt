@@ -4,17 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commercial Development Guide: Cost to Build in {city}, {state}</title>
+    
+    <!-- 💰 ADSENSE AUTO-ADS INJECTION POINT (Optional global code) -->
+    <!-- Place your global AdSense script here if using Auto Ads later -->
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 0 20px;">
 
     <p style="color: #666; font-size: 0.9rem;">Regional Construction Analysis</p>
     <h1 style="color: #111; border-bottom: 2px solid #eee; padding-bottom: 10px;">Commercial Development Guide: Cost to Build in {city}, {state}</h1>
 
-    <!-- 💰 MONETIZATION BLOCK 1: TOP DISPLAY AD ALIGNMENT -->
-    <div style="background: #fdfdfd; border: 1px dashed #bbb; padding: 20px; text-align: center; margin: 20px 0; border-radius: 4px;">
-        <p style="color: #999; font-size: 0.75rem; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">Sponsored Advertisement</p>
-        <!-- Paste your Google AdSense code block here later -->
+    <!-- 💰 ADSENSE TOP BANNER SLOT (Optimized for responsive/display banner ads) -->
+    <div style="margin: 20px 0; text-align: center; min-height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #fafafa; border: 1px dashed #ccc; border-radius: 4px; padding: 15px;">
+        <span style="color: #999; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px;">Sponsored Advertisement</span>
+        
+        <!-- ⚡ INJECT YOUR ADSENSE DISPLAY AD CODE TAGS BELOW THIS LINE ⚡ -->
         <div style="color: #666; font-style: italic; font-size: 0.9rem;">[Local {city} Commercial Financing & Lending Offers Available]</div>
+        <!-- 
+        Example of what you'll paste here:
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        -->
     </div>
 
     <p>Expanding or establishing a commercial project in the <strong>{city}</strong> region requires navigating localized overhead costs, zoning constraints, and regulatory timelines. Knowing these numbers upfront prevents costly design revisions down the road.</p>
@@ -32,7 +46,6 @@
             <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2rem; font-weight: bold;">Need a Commercial Survey or Layout Estimate in {city}?</h4>
             <p style="color: #1e3a8a; margin: 0 0 15px 0; font-size: 0.95rem;">Connect with licensed local engineering crews and specialized surveyors servicing the <strong>{state}</strong> economic corridor.</p>
             
-            <!-- ⚡ FIXED: Form setup -->
             <form id="lead-form" action="https://submit-form.com/3nezA7o2k" method="POST" onsubmit="submitLeadForm(event)" style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr; max-width: 500px;">
                 <input type="text" name="name" placeholder="Your Name" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
                 <input type="email" name="email" placeholder="Business Email" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
