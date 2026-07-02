@@ -32,7 +32,7 @@
             <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2rem; font-weight: bold;">Need a Commercial Survey or Layout Estimate in {city}?</h4>
             <p style="color: #1e3a8a; margin: 0 0 15px 0; font-size: 0.95rem;">Connect with licensed local engineering crews and specialized surveyors servicing the <strong>{state}</strong> economic corridor.</p>
             
-            <!-- ⚡ FIXED: Added explicit action, method, and onsubmit interceptor to kill URL query generation -->
+            <!-- ⚡ FIXED: Form setup -->
             <form id="lead-form" action="https://submit-form.com/3nezA7o2k" method="POST" onsubmit="submitLeadForm(event)" style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr; max-width: 500px;">
                 <input type="text" name="name" placeholder="Your Name" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
                 <input type="email" name="email" placeholder="Business Email" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
@@ -59,10 +59,9 @@
     <hr style="border: 0; border-top: 1px solid #eee; margin-top: 40px;">
     <p style="color: #777; font-size: 0.85rem; font-style: italic;">Disclaimer: Real estate development benchmarks change based on project complexity. Always verify local layout requirements directly with official regional boards before breaking ground.</p>
 
-    <!-- ⚡ BALANCED BEHAVIOR ENGINE WITH EXPLICIT EVENT INTERCEPTION -->
+    <!-- ⚡ JAVASCRIPT WITH PYTHON-ESCAPED BRACES -->
     <script>
-        function submitLeadForm(e) {
-            // Absolute first step: stop the browser from reloading or appending to URL
+        function submitLeadForm(e) {{
             e.preventDefault();
             
             const form = document.getElementById('lead-form');
@@ -70,31 +69,28 @@
             btn.innerText = 'Sending...';
             btn.disabled = true;
 
-            // Gather values directly from input elements
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
 
-            // Post seamlessly to Formspark container
-            fetch('https://submit-form.com/3nezA7o2k', {
+            fetch('https://submit-form.com/3nezA7o2k', {{
                 method: 'POST',
-                headers: {
+                headers: {{
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                },
+                }},
                 body: JSON.stringify(data),
-            })
-            .then(function() {
-                // Instantly hide the inputs and surface the green banner
+            }})
+            .then(function() {{
                 document.getElementById('lead-form-container').style.display = 'none';
                 document.getElementById('success-banner').style.display = 'block';
-            })
-            .catch(function(error) {
+            }})
+            .catch(function(error) {{
                 console.error('Submission error:', error);
-                btn.innerText = 'Request Free Consultation';
+                btn.innerText = 'Request Free {city} Layout Consultation';
                 btn.disabled = false;
                 alert('Submission failed. Please try again.');
-            });
-        }
+            }});
+        }}
     </script>
 
 </body>
