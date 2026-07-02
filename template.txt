@@ -26,20 +26,25 @@
         <strong>Pro-Tip:</strong> If your plot has unique topological variations, steep slope offsets, or complex grading challenges, expect local field crews to adjust their quotes accordingly.
     </div>
 
-    <!-- 💰 MONETIZATION BLOCK 2: HIGH-CONVERTING B2B LEAD CAPTURE WITH AUTO-REDIRECT -->
-    <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 25px; margin: 30px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-        <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2rem; font-weight: bold;">Need a Commercial Survey or Layout Estimate in {city}?</h4>
-        <p style="color: #1e3a8a; margin: 0 0 15px 0; font-size: 0.95rem;">Connect with licensed local engineering crews and specialized surveyors servicing the <strong>{state}</strong> economic corridor.</p>
-        <form action="https://submit-form.com/3nezA7o2k" method="POST" style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr; max-width: 500px;">
+    <!-- 💰 MONETIZATION BLOCK 2: B2B LEAD CAPTURE CONTAINER -->
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 25px; margin: 30px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); position: relative;">
+        <div id="lead-form-container">
+            <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2rem; font-weight: bold;">Need a Commercial Survey or Layout Estimate in {city}?</h4>
+            <p style="color: #1e3a8a; margin: 0 0 15px 0; font-size: 0.95rem;">Connect with licensed local engineering crews and specialized surveyors servicing the <strong>{state}</strong> economic corridor.</p>
             
-            <!-- ⚡ HIDDEN REDIRECT FOR SEAMLESS USER FLOW -->
-            <input type="hidden" name="_redirect" value="https://metro-dev-estimator.vercel.app" />
-            
-            <input type="text" name="name" placeholder="Your Name" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
-            <input type="email" name="email" placeholder="Business Email" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
-            <input type="text" name="phone" placeholder="Phone Number" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem; grid-column: span 2;">
-            <button type="submit" style="background: #2563eb; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem; grid-column: span 2;">Request Free {city} Layout Consultation</button>
-        </form>
+            <form id="lead-form" style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr; max-width: 500px;">
+                <input type="text" name="name" placeholder="Your Name" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
+                <input type="email" name="email" placeholder="Business Email" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
+                <input type="text" name="phone" placeholder="Phone Number" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem; grid-column: span 2;">
+                <button type="submit" id="submit-btn" style="background: #2563eb; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem; grid-column: span 2;">Request Free {city} Layout Consultation</button>
+            </form>
+        </div>
+
+        <!-- 🎉 INLINE SMART BANNER (Hidden by default) -->
+        <div id="success-banner" style="display: none; background: #dcfce7; border: 1px solid #bbf7d0; color: #166534; padding: 20px; border-radius: 6px; text-align: center;">
+            <h4 style="margin: 0 0 5px 0; font-size: 1.2rem; font-weight: bold;">Thank You!</h4>
+            <p style="margin: 0; font-size: 0.95rem;">Our structural layout team will contact you shortly.</p>
+        </div>
     </div>
 
     <h3 style="color: #222; margin-top: 30px;">2. Local Permitting & Regulatory Timelines</h3>
@@ -52,6 +57,42 @@
 
     <hr style="border: 0; border-top: 1px solid #eee; margin-top: 40px;">
     <p style="color: #777; font-size: 0.85rem; font-style: italic;">Disclaimer: Real estate development benchmarks change based on project complexity. Always verify local layout requirements directly with official regional boards before breaking ground.</p>
+
+    <!-- ⚡ LIGHTWEIGHT BEHAVIOR ENGINE -->
+    <script>
+        document.getElementById('lead-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submit-btn');
+            btn.innerText = 'Sending...';
+            btn.disabled = true;
+
+            // Gather the data points
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            // Post silently to Formspark using your dedicated form ID
+            fetch('https://submit-form.com/3nezA7o2k', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(() => {
+                // Instantly swap the input form box for your beautiful clean banner
+                document.getElementById('lead-form-container').style.display = 'none';
+                document.getElementById('success-banner').style.display = 'block';
+            })
+            .catch((error) => {
+                console.error('Submission error:', error);
+                btn.innerText = 'Request Free {city} Layout Consultation';
+                btn.disabled = false;
+                alert('An error occurred. Please try again.');
+            });
+        });
+    </script>
 
 </body>
 </html>
