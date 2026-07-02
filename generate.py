@@ -2,7 +2,7 @@ import urllib.request
 import csv
 import os
 
-# 1. LINK TO YOUR GOOGLE SHEET CSV
+# 1. LINK TO YOUR GOOGLE SHEET CSV (Make sure this matches your published sheet link)
 CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQMP8m4tpMGQBUVzJTFeDafKYHmxvLZss9r369IWWU6t9slrcXX8e7w1qjl-snipjpLoF7TniA-7QlV/pub?gid=0&single=true&output=csv"
 
 def download_and_generate():
@@ -10,7 +10,7 @@ def download_and_generate():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # Read the master story template
+    # Read the master template
     with open("template.txt", "r", encoding="utf-8") as f:
         template_content = f.read()
 
@@ -21,7 +21,7 @@ def download_and_generate():
     reader = csv.DictReader(lines)
 
     count = 0
-    homepage_links_html = "" # This will collect all our dynamic homepage links
+    homepage_links_html = ""
 
     for row in reader:
         city_name = row['city'].strip()
@@ -32,12 +32,32 @@ def download_and_generate():
         state_slug = state_name.lower().replace(' ', '-')
         filename = f"{city_slug}-{state_slug}.html"
 
-        # Drop the spreadsheet facts into the matching template spaces
+        # DYNAMIC MATH: Extract numbers safely and calculate credible ranges
+        try:
+            # Strip out any legacy characters like '$' or commas just in case
+            clean_cost = int(row['survey_cost'].replace('$', '').replace(',', '').strip())
+            clean_days = int(row['permit_days'].strip())
+        except ValueError:
+            # Fallback to sensible defaults if the data row has formatting anomalies
+            clean_cost = 3500
+            clean_days = 20
+
+        # Calculate a low/high variance band for Surveying Costs (-15% to +25%)
+        survey_low = f"${int(clean_cost * 0.85):,}"
+        survey_high = f"${int(clean_cost * 1.25):,}"
+
+        # Calculate a low/high variance band for Permit Timelines (-4 days to +20 days)
+        permit_low = max(5, clean_days - 4)  # Ensure minimum timeline is at least 5 days
+        permit_high = clean_days + 20
+
+        # Drop the computed ranges into the updated template slots
         html_page = template_content.format(
             city=city_name,
             state=state_name,
-            survey_cost=row['survey_cost'].strip(),
-            permit_days=row['permit_days'].strip(),
+            survey_low=survey_low,
+            survey_high=survey_high,
+            permit_low=permit_low,
+            permit_high=permit_high,
             zoning_office=row['zoning_office'].strip(),
             growth_type=row['growth_type'].strip()
         )
@@ -46,7 +66,7 @@ def download_and_generate():
         with open(os.path.join(output_dir, filename), "w", encoding="utf-8") as out_file:
             out_file.write(html_page)
         
-        # ANTIGRAVITY AUTOMATION: Add this city link to our list for the homepage
+        # Track dynamic homepage links
         homepage_links_html += f'        <li style="margin: 10px 0;"><a href="/{filename}" style="color: #0070f3; text-decoration: none; font-size: 1.1rem; font-weight: bold;">{city_name}, {state_name} Cost Estimator Guide</a></li>\n'
         count += 1
 
