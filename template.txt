@@ -13,7 +13,7 @@
     <p>Expanding or establishing a commercial project in the <strong>{city}</strong> region requires navigating localized overhead costs, zoning constraints, and regulatory timelines. Knowing these numbers upfront prevents costly design revisions down the road.</p>
 
     <h3 style="color: #222; margin-top: 30px;">1. Land Mapping & Structural Surveying Costs</h3>
-    <p>Before laying a single foundation or submitting layouts to local boards, an accurate boundary and topographic survey is vital. In <strong>{city}</strong>, the average expenditure for a standard commercial land survey hovers around <strong>{survey_cost}</strong>.</p>
+    <p>Before laying a single foundation or submitting layouts to local boards, an accurate boundary and topographic survey is vital. In <strong>{city}</strong>, the average expenditure for a standard commercial land survey typically ranges between <strong>{survey_low} and {survey_high}</strong> depending on acreage.</p>
 
     <div style="background: #f9f9f9; border-left: 4px solid #0070f3; padding: 15px; margin: 20px 0; font-style: italic;">    
         <strong>Pro-Tip:</strong> If your plot has unique topological variations, steep slope offsets, or complex grading challenges, expect local field crews to adjust their quotes accordingly.
@@ -22,7 +22,7 @@
     <h3 style="color: #222; margin-top: 30px;">2. Local Permitting & Regulatory Timelines</h3>
     <p>Navigating municipal channels can heavily impact your project timeline. If you are submitting architectural plans or commercial civil layouts in this region, your applications will be routed directly through the <strong>{zoning_office}</strong>.</p>
     
-    <p>On average, the standard turnaround time to secure structural, environmental, or zoning approval here sits at <strong>{permit_days} days</strong>. Managing layout milestones around this waiting period is crucial to prevent site crew stand-by fees.</p>
+    <p>On average, the standard turnaround time to secure structural, environmental, or zoning approval here sits at <strong>{permit_low} to {permit_high} days</strong>. Managing layout milestones around this waiting period is crucial to prevent site crew stand-by fees.</p>
 
     <h3 style="color: #222; margin-top: 30px;">3. Current Regional Growth Trends</h3>
     <p>Development strategies vary widely across state lines. In <strong>{state}</strong>, and specifically within the <strong>{city}</strong> economic corridor, municipal planning data indicates a major investment boom focused heavily on <strong>{growth_type}</strong> development. Aligning your real estate investment with these structural growth sectors often simplifies financing and infrastructure connections.</p>
