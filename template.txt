@@ -10,6 +10,13 @@
     <p style="color: #666; font-size: 0.9rem;">Regional Construction Analysis</p>
     <h1 style="color: #111; border-bottom: 2px solid #eee; padding-bottom: 10px;">Commercial Development Guide: Cost to Build in {city}, {state}</h1>
 
+    <!-- 💰 MONETIZATION BLOCK 1: TOP DISPLAY AD ALIGNMENT -->
+    <div style="background: #fdfdfd; border: 1px dashed #bbb; padding: 20px; text-align: center; margin: 20px 0; border-radius: 4px;">
+        <p style="color: #999; font-size: 0.75rem; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">Sponsored Advertisement</p>
+        <!-- Paste your Google AdSense code block here later -->
+        <div style="color: #666; font-style: italic; font-size: 0.9rem;">[Local {city} Commercial Financing & Lending Offers Available]</div>
+    </div>
+
     <p>Expanding or establishing a commercial project in the <strong>{city}</strong> region requires navigating localized overhead costs, zoning constraints, and regulatory timelines. Knowing these numbers upfront prevents costly design revisions down the road.</p>
 
     <h3 style="color: #222; margin-top: 30px;">1. Land Mapping & Structural Surveying Costs</h3>
@@ -17,6 +24,18 @@
 
     <div style="background: #f9f9f9; border-left: 4px solid #0070f3; padding: 15px; margin: 20px 0; font-style: italic;">    
         <strong>Pro-Tip:</strong> If your plot has unique topological variations, steep slope offsets, or complex grading challenges, expect local field crews to adjust their quotes accordingly.
+    </div>
+
+    <!-- 💰 MONETIZATION BLOCK 2: HIGH-CONVERTING B2B LEAD CAPTURE -->
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 25px; margin: 30px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+        <h4 style="color: #1e40af; margin-0 0 10px 0; font-size: 1.2rem; font-weight: bold;">Need a Commercial Survey or Layout Estimate in {city}?</h4>
+        <p style="color: #1e3a8a; margin: 0 0 15px 0; font-size: 0.95rem;">Connect with licensed local engineering crews and specialized surveyors servicing the <strong>{state}</strong> economic corridor.</p>
+        <form action="https://submit-form.com/3nezA7o2k" method="POST" style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr; max-width: 500px;">
+            <input type="text" name="name" placeholder="Your Name" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
+            <input type="email" name="email" placeholder="Business Email" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem;">
+            <input type="text" name="phone" placeholder="Phone Number" required style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.9rem; grid-column: span 2;">
+            <button type="submit" style="background: #2563eb; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 0.95rem; grid-column: span 2;">Request Free {city} Layout Consultation</button>
+        </form>
     </div>
 
     <h3 style="color: #222; margin-top: 30px;">2. Local Permitting & Regulatory Timelines</h3>
