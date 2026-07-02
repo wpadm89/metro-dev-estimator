@@ -107,7 +107,12 @@ def download_and_generate():
     with open(os.path.join(output_dir, "sitemap.xml"), "w", encoding="utf-8") as sitemap_file:
         sitemap_file.write(sitemap_xml_content)
 
-    print(f"Success! Built directory maps and {count} programmatic pages in the cloud.")
+    # 💰 AUTOMATED ADS.TXT INJECTION FOR ANTI-FRAUD CLEARANCE
+    ads_txt_content = "google.com, pub-4339332173825521, DIRECT, f08c47fec0942fa0"
+    with open(os.path.join(output_dir, "ads.txt"), "w", encoding="utf-8") as ads_txt_file:
+        ads_txt_file.write(ads_txt_content)
+
+    print(f"Success! Built directory maps, sitemaps, ads.txt, and {count} programmatic pages in the cloud.")
 
 if __name__ == "__main__":
     download_and_generate()
