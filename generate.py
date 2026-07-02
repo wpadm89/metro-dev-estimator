@@ -26,7 +26,6 @@ def download_and_generate():
     
     # Initialize the automated XML sitemap structure
     sitemap_xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    # Add the homepage to the map first
     sitemap_xml_content += f'    <url>\n        <loc>{BASE_URL}/</loc>\n        <priority>1.0</priority>\n    </url>\n'
 
     for row in reader:
@@ -80,13 +79,16 @@ def download_and_generate():
     # Close out the XML sitemap structure
     sitemap_xml_content += "</urlset>"
 
-    # Define the dynamic homepage layout with AdSense verification included
+    # Define the dynamic homepage layout
     index_html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>US Commercial Development Cost Directory</title>
+    
+    <!-- 🔍 GOOGLE SEARCH CONSOLE VERIFICATION -->
+    <meta name="google-site-verification" content="94MKhhJxy6J9jbZVtS2AynrkXcKfpD7JR-mHnFB7-QQ" />
     
     <!-- 💰 ADSENSE HOME PAGE VERIFICATION -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4339332173825521" crossorigin="anonymous"></script>
@@ -112,7 +114,7 @@ def download_and_generate():
     with open(os.path.join(output_dir, "ads.txt"), "w", encoding="utf-8") as ads_txt_file:
         ads_txt_file.write(ads_txt_content)
 
-    print(f"Success! Built directory maps, sitemaps, ads.txt, and {count} programmatic pages in the cloud.")
+    print(f"Success! Built directory maps, sitemaps, ads.txt, verification headers, and {count} programmatic pages in the cloud.")
 
 if __name__ == "__main__":
     download_and_generate()
