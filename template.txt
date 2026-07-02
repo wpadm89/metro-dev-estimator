@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commercial Development Guide: Cost to Build in {city}, {state}</title>
     
+    <!-- 🔍 GOOGLE SEARCH CONSOLE VERIFICATION -->
+    <meta name="google-site-verification" content="94MKhhJxy6J9jbZVtS2AynrkXcKfpD7JR-mHnFB7-QQ" />
+    
     <!-- 💰 FIXED ADSENSE AUTO-ADS & CORE LIBRARY INJECTION -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4339332173825521" crossorigin="anonymous"></script>
 </head>
@@ -17,7 +20,7 @@
     <div style="margin: 20px 0; text-align: center; min-height: 100px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #fafafa; border: 1px dashed #ccc; border-radius: 4px; padding: 15px;">
         <span style="color: #999; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px;">Sponsored Advertisement</span>
         
-        <!-- ⚡ ADSENSE LIVE TARGET SLOT (Ready for your explicit unit tags later or Auto-Ads distribution) -->
+        <!-- ⚡ ADSENSE LIVE TARGET SLOT -->
         <div style="color: #666; font-style: italic; font-size: 0.9rem;">[Local {city} Commercial Financing & Lending Offers Available]</div>
     </div>
 
@@ -44,7 +47,7 @@
             </form>
         </div>
 
-        <!-- 🎉 INLINE SMART BANNER (Hidden by default) -->
+        <!-- 🎉 INLINE SMART BANNER -->
         <div id="success-banner" style="display: none; background: #dcfce7; border: 1px solid #bbf7d0; color: #166534; padding: 20px; border-radius: 6px; text-align: center;">
             <h4 style="margin: 0 0 5px 0; font-size: 1.2rem; font-weight: bold;">Thank You!</h4>
             <p style="margin: 0; font-size: 0.95rem;">Our structural layout team will contact you shortly.</p>
