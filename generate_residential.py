@@ -3,15 +3,14 @@ import csv
 import os
 import json
 
-# 1. NEW RESIDENTIAL CSV GOOGLE SHEET LINK
+# 1. RESIDENTIAL CSV GOOGLE SHEET LINK
 CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6Irlr4Q_CdY6iVcQacKeTDROrhXuWOh2rhwKlmO4gjj8SE-zIUhAd_e5VJh2T9HSa8gR4SEERYgaT/pub?output=csv"
 BASE_URL = "https://metro-dev-estimator.vercel.app"
 
 def download_and_generate_residential():
-    # Flatten output directly into the main public folder to clear 404 constraints
-    output_dir = "public"
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+    # Set the folder path to public/residential
+    output_dir = os.path.join("public", "residential")
+    os.makedirs(output_dir, exist_ok=True)
 
     # Read the residential template
     with open("residential_template.txt", "r", encoding="utf-8") as f:
@@ -33,7 +32,7 @@ def download_and_generate_residential():
         c_name = row['city'].strip()
         c_slug = c_name.lower().replace(' ', '-')
         s_slug = s_name.lower().replace(' ', '-')
-        f_name = f"residential-{c_slug}-{s_slug}.html" # Flat layout naming syntax
+        f_name = f"{c_slug}-{s_slug}.html" 
         
         if s_name not in state_groups:
             state_groups[s_name] = []
@@ -49,7 +48,7 @@ def download_and_generate_residential():
         calculator_dataset[f"{c_name}, {s_name}"] = {
             "cost": base_cost,
             "days": base_days,
-            "url": f"/{f_name}"
+            "url": f"/residential/{f_name}"
         }
 
     # Pass 2: Compile the individual landing pages
@@ -72,7 +71,7 @@ def download_and_generate_residential():
 
         city_slug = city_name.lower().replace(' ', '-')
         state_slug = state_name.lower().replace(' ', '-')
-        filename = f"residential-{city_slug}-{state_slug}.html"
+        filename = f"{city_slug}-{state_slug}.html"
 
         try:
             clean_cost = int(row['survey_cost'].replace('$', '').replace(',', '').strip())
@@ -93,7 +92,7 @@ def download_and_generate_residential():
         
         for peer in state_groups[state_name]:
             if peer['city'] != city_name: 
-                grid_html += f'        <a href="/{peer["filename"]}" style="color: #10b981; text-decoration: none; font-size: 0.9rem;">• {peer["city"]} Boundary Cost</a>\n'
+                grid_html += f'        <a href="/residential/{peer["filename"]}" style="color: #10b981; text-decoration: none; font-size: 0.9rem;">• {peer["city"]} Boundary Cost</a>\n'
         
         grid_html += '    </div>\n</div>'
 
@@ -141,10 +140,10 @@ def download_and_generate_residential():
         with open(os.path.join(output_dir, filename), "w", encoding="utf-8") as out_file:
             out_file.write(html_page)
         
-        directory_links_html += f'        <li style="margin: 10px 0;"><a href="/{filename}" style="color: #10b981; text-decoration: none; font-size: 1.1rem; font-weight: bold;">{city_name}, {state_name} Residential Property Survey Cost</a></li>\n'
+        directory_links_html += f'        <li style="margin: 10px 0;"><a href="/residential/{filename}" style="color: #10b981; text-decoration: none; font-size: 1.1rem; font-weight: bold;">{city_name}, {state_name} Residential Property Survey Cost</a></li>\n'
         count += 1
 
-    # Compile the flat Residential Sub-hub Index Screen (residential.html)
+    # Compile the Residential Hub Index Screen as public/residential/index.html
     index_html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -236,11 +235,10 @@ def download_and_generate_residential():
 </body>
 </html>"""
 
-    # Saved flat to the public folder root
-    with open(os.path.join(output_dir, "residential.html"), "w", encoding="utf-8") as index_file:
+    with open(os.path.join(output_dir, "index.html"), "w", encoding="utf-8") as index_file:
         index_file.write(index_html_content)
 
-    print(f"Success! Generated flat residential files layout framework smoothly.")
+    print(f"Success! Generated residential directory sheets, calculators, and {count} regional boundary pages inside public/residential/.")
 
 if __name__ == "__main__":
     download_and_generate_residential()
