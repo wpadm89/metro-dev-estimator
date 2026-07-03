@@ -18,9 +18,27 @@ def download_and_generate():
     print("Fetching latest records from Google Sheets...")
     
     response = urllib.request.urlopen(CSV_URL)
-    lines = [line.decode('utf-8') for line in response.readlines()]
-    reader = csv.DictReader(lines)
+    raw_data = response.read().decode('utf-8')
+    
+    # Process data rows out of raw lines
+    lines = raw_data.splitlines()
+    
+    # Pass 1: Build a relationship map of all cities grouped by their state for the SEO Grid
+    state_groups = {}
+    reader_pre = csv.DictReader(lines)
+    for row in reader_pre:
+        s_name = row['state'].strip()
+        c_name = row['city'].strip()
+        c_slug = c_name.lower().replace(' ', '-')
+        s_slug = s_name.lower().replace(' ', '-')
+        f_name = f"{c_slug}-{s_slug}.html"
+        
+        if s_name not in state_groups:
+            state_groups[s_name] = []
+        state_groups[s_name].append({"city": c_name, "filename": f_name})
 
+    # Pass 2: Reset reader and build pages cleanly
+    reader = csv.DictReader(lines)
     count = 0
     homepage_links_html = ""
     
@@ -32,7 +50,6 @@ def download_and_generate():
         city_name = row['city'].strip()
         state_name = row['state'].strip()
         
-        # Clean up names to make pretty URLs
         city_slug = city_name.lower().replace(' ', '-')
         state_slug = state_name.lower().replace(' ', '-')
         filename = f"{city_slug}-{state_slug}.html"
@@ -45,15 +62,23 @@ def download_and_generate():
             clean_cost = 3500
             clean_days = 20
 
-        # Calculate a low/high variance band for Surveying Costs (-15% to +25%)
         survey_low = f"${int(clean_cost * 0.85):,}"
         survey_high = f"${int(clean_cost * 1.25):,}"
-
-        # Calculate a low/high variance band for Permit Timelines (-4 days to +20 days)
         permit_low = max(5, clean_days - 4)
         permit_high = clean_days + 20
 
-        # Drop the computed ranges into the updated template slots
+        # Build the HTML internal navigation module for this page's state group
+        grid_html = f'<div style="margin-top: 40px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 20px;">\n'
+        grid_html += f'    <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 1.1rem;">Other Regional Estimators in {state_name}:</h4>\n'
+        grid_html += f'    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px;">\n'
+        
+        for peer in state_groups[state_name]:
+            if peer['city'] != city_name: # Don't link a page to itself
+                grid_html += f'        <a href="/{peer["filename"]}" style="color: #2563eb; text-decoration: none; font-size: 0.9rem;">• {peer["city"]} Cost Estimate</a>\n'
+        
+        grid_html += '    </div>\n</div>'
+
+        # Drop everything into the master template layout
         html_page = template_content.format(
             city=city_name,
             state=state_name,
@@ -62,24 +87,21 @@ def download_and_generate():
             permit_low=permit_low,
             permit_high=permit_high,
             zoning_office=row['zoning_office'].strip(),
-            growth_type=row['growth_type'].strip()
+            growth_type=row['growth_type'].strip(),
+            state_links_group=grid_html
         )
 
-        # Save the finished page into the public folder
+        # Save finished file
         with open(os.path.join(output_dir, filename), "w", encoding="utf-8") as out_file:
             out_file.write(html_page)
         
-        # Track dynamic homepage links
         homepage_links_html += f'        <li style="margin: 10px 0;"><a href="/{filename}" style="color: #0070f3; text-decoration: none; font-size: 1.1rem; font-weight: bold;">{city_name}, {state_name} Cost Estimator Guide</a></li>\n'
-        
-        # Append this city's URL directly into the dynamic sitemap mapping array
         sitemap_xml_content += f'    <url>\n        <loc>{BASE_URL}/{filename}</loc>\n        <priority>0.8</priority>\n    </url>\n'
         count += 1
 
-    # Close out the XML sitemap structure
     sitemap_xml_content += "</urlset>"
 
-    # Define the dynamic homepage layout
+    # Define the dynamic homepage directory layout
     index_html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,11 +123,11 @@ def download_and_generate():
 </body>
 </html>"""
 
-    # Save the automatically built homepage into the public folder
+    # Write Index
     with open(os.path.join(output_dir, "index.html"), "w", encoding="utf-8") as index_file:
         index_file.write(index_html_content)
 
-    # Write the completely built sitemap directly into production storage
+    # Write Sitemap
     with open(os.path.join(output_dir, "sitemap.xml"), "w", encoding="utf-8") as sitemap_file:
         sitemap_file.write(sitemap_xml_content)
 
@@ -114,7 +136,7 @@ def download_and_generate():
     with open(os.path.join(output_dir, "ads.txt"), "w", encoding="utf-8") as ads_txt_file:
         ads_txt_file.write(ads_txt_content)
 
-    print(f"Success! Built directory maps, sitemaps, ads.txt, verification headers, and {count} programmatic pages in the cloud.")
+    print(f"Success! Built directory maps, sitemaps, ads.txt, SEO grid configurations, and {count} programmatic pages in the cloud.")
 
 if __name__ == "__main__":
     download_and_generate()
