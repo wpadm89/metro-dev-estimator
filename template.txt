@@ -10,6 +10,9 @@
     
     <!-- 💰 FIXED ADSENSE AUTO-ADS & CORE LIBRARY INJECTION -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4339332173825521" crossorigin="anonymous"></script>
+
+    <!-- 🤖 DYNAMIC LOCAL FAQ SCHEMA LAYER -->
+    {faq_schema_block}
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 0 20px;">
 
