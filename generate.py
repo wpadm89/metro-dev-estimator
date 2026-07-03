@@ -154,7 +154,7 @@ def download_and_generate():
 
     sitemap_xml_content += "</urlset>"
 
-    # 🧮 INTERACTIVE HOME WIDGET ENGINE WITH MIXED NAVIGATION TOGGLE
+    # 🧮 INTERACTIVE HOME WIDGET ENGINE WITH FLAT NAVIGATION TOGGLE
     index_html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -162,19 +162,23 @@ def download_and_generate():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>US Commercial Development Cost Directory & Calculator</title>
     
+    <!-- 🔍 GOOGLE SEARCH CONSOLE VERIFICATION -->
     <meta name="google-site-verification" content="94MKhhJxy6J9jbZVtS2AynrkXcKfpD7JR-mHnFB7-QQ" />
     
+    <!-- 💰 ADSENSE HOME PAGE VERIFICATION -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4339332173825521" crossorigin="anonymous"></script>
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 0 20px;">
     
+    <!-- 🔄 NICHE SWITCHER NAVIGATION HEADER -->
     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
         <strong style="color: #0f172a; font-size: 0.95rem;">Active Directory: 🏢 Commercial Costs</strong>
-        <a href="/residential/" style="color: #10b981; font-weight: bold; text-decoration: none; font-size: 0.95rem;">Switch to 🏡 Residential Surveys &rarr;</a>
+        <a href="/residential" style="color: #10b981; font-weight: bold; text-decoration: none; font-size: 0.95rem;">Switch to 🏡 Residential Surveys &rarr;</a>
     </div>
 
     <h1 style="color: #111; border-bottom: 2px solid #eee; padding-bottom: 10px;">US Commercial Development Cost Directory</h1>
     
+    <!-- 🧮 CALCULATOR PANEL CARD CONTAINER -->
     <div style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 25px; margin: 30px 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
         <h3 style="margin-top: 0; color: #1e293b; font-size: 1.3rem;">Instant Regional Project Budget Cost Estimator</h3>
         <p style="color: #475569; font-size: 0.95rem; margin-bottom: 20px;">Select your layout territory and enter project size to estimate scaling ranges:</p>
@@ -193,6 +197,7 @@ def download_and_generate():
         
         <button onclick="calculateBudget()" style="width: 100%; background: #0070f3; color: white; border: none; padding: 12px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 1rem;">Run Structural Estimator Computations</button>
         
+        <!-- CALC OUTPUT BOARD -->
         <div id="calc-results" style="display: none; margin-top: 20px; border-top: 1px dashed #cbd5e1; padding-top: 20px;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: center;">
                 <div style="background: white; border-radius: 6px; padding: 15px; border: 1px solid #e2e8f0;">
@@ -214,6 +219,7 @@ def download_and_generate():
     <ul style="list-style-type: square; padding-left: 20px;">
 {homepage_links_html}    </ul>
 
+    <!-- INTERACTIVE CALC ENGINE OBJECT SCRIPT -->
     <script>
         const dataMatrix = {json.dumps(calculator_dataset)};
         
@@ -250,12 +256,7 @@ def download_and_generate():
     with open(os.path.join(output_dir, "sitemap.xml"), "w", encoding="utf-8") as sitemap_file:
         sitemap_file.write(sitemap_xml_content)
 
-    # 💰 AUTOMATED ADS.TXT INJECTION FOR ANTI-FRAUD CLEARANCE
-    ads_txt_content = "google.com, pub-4339332173825521, DIRECT, f08c47fec0942fa0"
-    with open(os.path.join(output_dir, "ads.txt"), "w", encoding="utf-8") as ads_txt_file:
-        ads_txt_file.write(ads_txt_content)
-
-    print(f"Success! Built directory maps, calculators, sitemaps, ads.txt, custom notes, and {count} programmatic pages in the cloud.")
+    print(f"Success! Built directory maps and {count} commercial programmatic pages.")
 
 if __name__ == "__main__":
     download_and_generate()
