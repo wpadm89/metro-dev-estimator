@@ -1,3 +1,7 @@
-"scripts": {
-  "build": "python3 generate.py && python3 generate_residential.py"
+{
+  "name": "metro-dev-estimator",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "python3 generate.py && python3 generate_residential.py"
+  }
 }
