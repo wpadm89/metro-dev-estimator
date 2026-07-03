@@ -8,7 +8,7 @@ CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6Irlr4Q_CdY6iVcQacK
 BASE_URL = "https://metro-dev-estimator.vercel.app"
 
 def download_and_generate_residential():
-    # Set the folder path to public/residential
+    # Set folder path to public/residential
     output_dir = os.path.join("public", "residential")
     os.makedirs(output_dir, exist_ok=True)
 
@@ -51,7 +51,7 @@ def download_and_generate_residential():
             "url": f"/residential/{f_name}"
         }
 
-    # Pass 2: Compile the individual landing pages
+    # Pass 2: Compile individual landing pages
     reader = csv.DictReader(lines)
     count = 0
     directory_links_html = ""
@@ -96,7 +96,7 @@ def download_and_generate_residential():
         
         grid_html += '    </div>\n</div>'
 
-        # Generate the JSON-LD schema payload
+        # Generate JSON-LD schema payload
         schema_json = f"""<script type="application/ld+json">
     {{
       "@context": "https://schema.org",
@@ -122,7 +122,7 @@ def download_and_generate_residential():
     }}
     </script>"""
 
-        # Format layout variables
+        # Format template variables
         html_page = template_content.format(
             city=city_name,
             state=state_name,
@@ -143,7 +143,7 @@ def download_and_generate_residential():
         directory_links_html += f'        <li style="margin: 10px 0;"><a href="/residential/{filename}" style="color: #10b981; text-decoration: none; font-size: 1.1rem; font-weight: bold;">{city_name}, {state_name} Residential Property Survey Cost</a></li>\n'
         count += 1
 
-    # Compile the Residential Hub Index Screen as public/residential/index.html
+    # Compile Residential Hub Index Screen exactly as public/residential/index.html
     index_html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,15 +151,12 @@ def download_and_generate_residential():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Residential Land Survey & Boundary Cost Directory</title>
     
-    <!-- 🔍 GOOGLE SEARCH CONSOLE VERIFICATION -->
     <meta name="google-site-verification" content="94MKhhJxy6J9jbZVtS2AynrkXcKfpD7JR-mHnFB7-QQ" />
     
-    <!-- 💰 ADSENSE AUTO-ADS INJECTION -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4339332173825521" crossorigin="anonymous"></script>
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 0 20px;">
     
-    <!-- 🔄 NICHE SWITCHER NAVIGATION HEADER -->
     <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
         <strong style="color: #0f172a; font-size: 0.95rem;">Active Directory: 🏡 Residential Surveys</strong>
         <a href="/" style="color: #0070f3; font-weight: bold; text-decoration: none; font-size: 0.95rem;">&larr; Switch to 🏢 Commercial Costs</a>
@@ -167,7 +164,6 @@ def download_and_generate_residential():
 
     <h1 style="color: #111; border-bottom: 2px solid #eee; padding-bottom: 10px;">Residential Property Survey Cost Directory</h1>
     
-    <!-- INTERACTIVE RESIDENTIAL CALCULATOR WIDGET -->
     <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 25px; margin: 30px 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03);">
         <h3 style="margin-top: 0; color: #14532d; font-size: 1.3rem;">Instant Residential Staking Cost Calculator</h3>
         <p style="color: #166534; font-size: 0.95rem; margin-bottom: 20px;">Select your property's territory and enter parcel lot sizing to calculate staking quotes:</p>
