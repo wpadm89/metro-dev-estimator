@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/residential",
-      "destination": "/residential.html"
+      "destination": "/hub.html"
     }
   ]
 }
