@@ -49,6 +49,7 @@ def download_and_generate():
     for row in reader:
         city_name = row['city'].strip()
         state_name = row['state'].strip()
+        zoning_office_name = row['zoning_office'].strip()
         
         city_slug = city_name.lower().replace(' ', '-')
         state_slug = state_name.lower().replace(' ', '-')
@@ -73,10 +74,36 @@ def download_and_generate():
         grid_html += f'    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px;">\n'
         
         for peer in state_groups[state_name]:
-            if peer['city'] != city_name: # Don't link a page to itself
+            if peer['city'] != city_name: 
                 grid_html += f'        <a href="/{peer["filename"]}" style="color: #2563eb; text-decoration: none; font-size: 0.9rem;">• {peer["city"]} Cost Estimate</a>\n'
         
         grid_html += '    </div>\n</div>'
+
+        # Generate the JSON-LD Local business FAQ structured metadata
+        schema_json = f"""<script type="application/ld+json">
+    {{
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {{
+          "@type": "Question",
+          "name": "How much does a commercial land survey cost in {city_name}?",
+          "acceptedAnswer": {{
+            "@type": "Answer",
+            "text": "The average cost for a standard commercial land boundary and topographic survey in {city_name} typically ranges between {survey_low} and {survey_high} depending on total site acreage and topological complexity."
+          }}
+        }},
+        {{
+          "@type": "Question",
+          "name": "How long does it take to get a commercial building permit in {city_name}?",
+          "acceptedAnswer": {{
+            "@type": "Answer",
+            "text": "The standard application processing turnaround window to secure civil structural layout or zoning verification approvals via the {zoning_office_name} ranges between {permit_low} to {permit_high} days."
+          }}
+        }}
+      ]
+    }}
+    </script>"""
 
         # Drop everything into the master template layout
         html_page = template_content.format(
@@ -86,9 +113,10 @@ def download_and_generate():
             survey_high=survey_high,
             permit_low=permit_low,
             permit_high=permit_high,
-            zoning_office=row['zoning_office'].strip(),
+            zoning_office=zoning_office_name,
             growth_type=row['growth_type'].strip(),
-            state_links_group=grid_html
+            state_links_group=grid_html,
+            faq_schema_block=schema_json
         )
 
         # Save finished file
@@ -136,7 +164,7 @@ def download_and_generate():
     with open(os.path.join(output_dir, "ads.txt"), "w", encoding="utf-8") as ads_txt_file:
         ads_txt_file.write(ads_txt_content)
 
-    print(f"Success! Built directory maps, sitemaps, ads.txt, SEO grid configurations, and {count} programmatic pages in the cloud.")
+    print(f"Success! Built directory maps, sitemaps, ads.txt, schema parameters, cross-linking nodes, and {count} programmatic pages in the cloud.")
 
 if __name__ == "__main__":
     download_and_generate()
