@@ -1,0 +1,3 @@
+"scripts": {
+  "build": "python3 generate.py && python3 generate_residential.py"
+}
