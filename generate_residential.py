@@ -8,7 +8,7 @@ CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6Irlr4Q_CdY6iVcQacK
 BASE_URL = "https://metro-dev-estimator.vercel.app"
 
 def download_and_generate_residential():
-    # Set folder path to public/residential
+    # Set folder path for city pages
     output_dir = os.path.join("public", "residential")
     os.makedirs(output_dir, exist_ok=True)
 
@@ -143,7 +143,7 @@ def download_and_generate_residential():
         directory_links_html += f'        <li style="margin: 10px 0;"><a href="/residential/{filename}" style="color: #10b981; text-decoration: none; font-size: 1.1rem; font-weight: bold;">{city_name}, {state_name} Residential Property Survey Cost</a></li>\n'
         count += 1
 
-    # Compile Residential Hub Index Screen exactly as public/residential/index.html
+    # Compile Residential Hub Index Screen directly as a flat file: public/residential.html
     index_html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -231,10 +231,11 @@ def download_and_generate_residential():
 </body>
 </html>"""
 
-    with open(os.path.join(output_dir, "index.html"), "w", encoding="utf-8") as index_file:
+    # Save exactly to public/residential.html to guarantee native Vercel routing
+    with open(os.path.join("public", "residential.html"), "w", encoding="utf-8") as index_file:
         index_file.write(index_html_content)
 
-    print(f"Success! Generated residential directory sheets, calculators, and {count} regional boundary pages inside public/residential/.")
+    print(f"Success! Generated residential directory sheets, calculators, and {count} regional boundary pages.")
 
 if __name__ == "__main__":
     download_and_generate_residential()
