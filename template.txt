@@ -65,6 +65,9 @@
     <h3 style="color: #222; margin-top: 30px;">3. Current Regional Growth Trends</h3>
     <p>Development strategies vary widely across state lines. In <strong>{state}</strong>, and specifically within the <strong>{city}</strong> economic corridor, municipal planning data indicates a major investment boom focused heavily on <strong>{growth_type}</strong> development. Aligning your real estate investment with these structural growth sectors often simplifies financing and infrastructure connections.</p>
 
+    <!-- 📝 OPTION 3: AI-GENERATED CONTEXTUAL LOCAL INFRASTRUCTURE BLOCK -->
+    <p>{local_notes}</p>
+
     <!-- 🔗 SEO ACCELERATION GRID LAYER -->
     {state_links_group}
 
