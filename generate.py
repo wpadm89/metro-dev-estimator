@@ -17,28 +17,28 @@ def download_and_generate():
         template_content = f.read()
 
     print("Fetching latest records from Google Sheets...")
-    
+
     response = urllib.request.urlopen(CSV_URL)
     raw_data = response.read().decode('utf-8')
     lines = raw_data.splitlines()
-    
+
     # Pass 1: Build state groups and compile list data for the home screen interactive widget
     state_groups = {}
     calculator_dataset = {}
     reader_pre = csv.DictReader(lines)
-    
+
     for row in reader_pre:
         s_name = row['state'].strip()
         c_name = row['city'].strip()
         c_slug = c_name.lower().replace(' ', '-')
         s_slug = s_name.lower().replace(' ', '-')
         f_name = f"{c_slug}-{s_slug}.html"
-        
+
         # Group by state for linking grid
         if s_name not in state_groups:
             state_groups[s_name] = []
         state_groups[s_name].append({"city": c_name, "filename": f_name})
-        
+
         # Standardize calculations for calculator data matrix
         try:
             base_cost = int(row['survey_cost'].replace('$', '').replace(',', '').strip())
@@ -46,7 +46,7 @@ def download_and_generate():
         except (ValueError, KeyError):
             base_cost = 3500
             base_days = 20
-            
+
         calculator_dataset[f"{c_name}, {s_name}"] = {
             "cost": base_cost,
             "days": base_days,
@@ -58,7 +58,7 @@ def download_and_generate():
     count = 0
     homepage_links_html = ""
     dropdown_options_html = ""
-    
+
     # Form option nodes for the calculator dropdown selector
     for key in sorted(calculator_dataset.keys()):
         dropdown_options_html += f'            <option value="{key}">{key}</option>\n'
@@ -71,7 +71,7 @@ def download_and_generate():
         city_name = row['city'].strip()
         state_name = row['state'].strip()
         zoning_office_name = row['zoning_office'].strip()
-        
+
         # Option 3 Content Injection with fallbacks
         local_notes = row.get('local_notes', '').strip()
         if not local_notes:
@@ -97,11 +97,11 @@ def download_and_generate():
         grid_html = f'<div style="margin-top: 40px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 20px;">\n'
         grid_html += f'    <h4 style="margin: 0 0 10px 0; color: #334155; font-size: 1.1rem;">Other Regional Estimators in {state_name}:</h4>\n'
         grid_html += f'    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px;">\n'
-        
+
         for peer in state_groups[state_name]:
-            if peer['city'] != city_name: 
+            if peer['city'] != city_name:
                 grid_html += f'        <a href="/{peer["filename"]}" style="color: #2563eb; text-decoration: none; font-size: 0.9rem;">• {peer["city"]} Cost Estimate</a>\n'
-        
+
         grid_html += '    </div>\n</div>'
 
         # Generate the JSON-LD FAQ schema metadata
@@ -147,7 +147,7 @@ def download_and_generate():
 
         with open(os.path.join(output_dir, filename), "w", encoding="utf-8") as out_file:
             out_file.write(html_page)
-        
+
         homepage_links_html += f'        <li style="margin: 10px 0;"><a href="/{filename}" style="color: #0070f3; text-decoration: none; font-size: 1.1rem; font-weight: bold;">{city_name}, {state_name} Cost Estimator Guide</a></li>\n'
         sitemap_xml_content += f'    <url>\n        <loc>{BASE_URL}/{filename}</loc>\n        <priority>0.8</priority>\n    </url>\n'
         count += 1
@@ -255,17 +255,19 @@ def download_and_generate():
     # Write Sitemap
     with open(os.path.join(output_dir, "sitemap.xml"), "w", encoding="utf-8") as sitemap_file:
         sitemap_file.write(sitemap_xml_content)
-    #Write ads.txt
+
+    # Write robots.txt — points crawlers at both the commercial and
+    # residential sitemaps. Written here since generate.py always runs
+    # first in the build ("python3 generate.py && python3 generate_residential.py").
     robots_txt_content = f"""User-agent: *
 Allow: /
- 
+
 Sitemap: {BASE_URL}/sitemap.xml
 Sitemap: {BASE_URL}/residential-sitemap.xml
 """
- 
-with open(os.path.join(output_dir, "robots.txt"), "w", encoding="utf-8") as robots_file:
-    robots_file.write(robots_txt_content)
- 
+
+    with open(os.path.join(output_dir, "robots.txt"), "w", encoding="utf-8") as robots_file:
+        robots_file.write(robots_txt_content)
 
     print(f"Success! Built directory maps and {count} commercial programmatic pages.")
 
