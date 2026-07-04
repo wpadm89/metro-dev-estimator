@@ -255,6 +255,17 @@ def download_and_generate():
     # Write Sitemap
     with open(os.path.join(output_dir, "sitemap.xml"), "w", encoding="utf-8") as sitemap_file:
         sitemap_file.write(sitemap_xml_content)
+    #Write ads.txt
+    robots_txt_content = f"""User-agent: *
+Allow: /
+ 
+Sitemap: {BASE_URL}/sitemap.xml
+Sitemap: {BASE_URL}/residential-sitemap.xml
+"""
+ 
+with open(os.path.join(output_dir, "robots.txt"), "w", encoding="utf-8") as robots_file:
+    robots_file.write(robots_txt_content)
+ 
 
     print(f"Success! Built directory maps and {count} commercial programmatic pages.")
 
