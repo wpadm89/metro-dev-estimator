@@ -8,22 +8,21 @@ CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ6Irlr4Q_CdY6iVcQacK
 BASE_URL = "https://metro-dev-estimator.vercel.app"
 
 def download_and_generate_residential():
-    # NOTE: renamed from "public/residential" to "public/residential-pages".
-    # A folder literally named "residential" collided with the vercel.json
-    # rewrite source "/residential" -> Vercel matched the static directory
-    # first (found no index.html inside) and 404'd before the rewrite to
-    # /hub.html ever ran. Renaming the folder removes the collision.
     output_dir = os.path.join("public", "residential-pages")
     os.makedirs(output_dir, exist_ok=True)
 
-    # Read the residential template
     with open("residential_template.txt", "r", encoding="utf-8") as f:
         template_content = f.read()
 
     print("Fetching records from Residential Google Sheet...")
 
-    response = urllib.request.urlopen(CSV_URL)
-    raw_data = response.read().decode('utf-8')
+    try:
+        response = urllib.request.urlopen(CSV_URL, timeout=30)
+        raw_data = response.read().decode('utf-8')
+    except Exception as e:
+        print(f"ERROR: Failed to fetch residential CSV from Google Sheets: {e}")
+        raise
+
     lines = raw_data.splitlines()
 
     # Pass 1: Map relationship networks across states for the dynamic internal grid
@@ -63,6 +62,10 @@ def download_and_generate_residential():
 
     for key in sorted(calculator_dataset.keys()):
         dropdown_options_html += f'            <option value="{key}">{key}</option>\n'
+
+    # Initialize the residential XML sitemap structure
+    sitemap_xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    sitemap_xml_content += f'    <url>\n        <loc>{BASE_URL}/residential</loc>\n        <priority>0.9</priority>\n    </url>\n'
 
     for row in reader:
         city_name = row['city'].strip()
@@ -145,7 +148,10 @@ def download_and_generate_residential():
             out_file.write(html_page)
 
         directory_links_html += f'        <li style="margin: 10px 0;"><a href="/residential-pages/{filename}" style="color: #10b981; text-decoration: none; font-size: 1.1rem; font-weight: bold;">{city_name}, {state_name} Residential Property Survey Cost</a></li>\n'
+        sitemap_xml_content += f'    <url>\n        <loc>{BASE_URL}/residential-pages/{filename}</loc>\n        <priority>0.7</priority>\n    </url>\n'
         count += 1
+
+    sitemap_xml_content += "</urlset>"
 
     # Compile Residential Hub Index Screen as public/hub.html
     index_html_content = f"""<!DOCTYPE html>
@@ -243,7 +249,11 @@ def download_and_generate_residential():
     with open(os.path.join("public", "hub.html"), "w", encoding="utf-8") as index_file:
         index_file.write(index_html_content)
 
-    print(f"Success! Generated residential directory assets safely inside public/hub.html.")
+    # Write the residential sitemap
+    with open(os.path.join("public", "residential-sitemap.xml"), "w", encoding="utf-8") as sitemap_file:
+        sitemap_file.write(sitemap_xml_content)
+
+    print(f"Success! Generated residential directory assets and residential-sitemap.xml with {count} pages.")
 
 if __name__ == "__main__":
     download_and_generate_residential()
